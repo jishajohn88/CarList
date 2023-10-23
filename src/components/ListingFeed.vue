@@ -38,7 +38,6 @@ export default {
       .then((res) => res.json())
       .then(arrayOfObjects => {
         this.vehicles = arrayOfObjects
-        console.log(this.vehicles)
       })
       .catch(err => console.log(err.message))
   }
