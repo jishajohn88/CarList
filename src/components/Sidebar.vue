@@ -22,8 +22,9 @@ export default {
     min-height: 100vh;
     padding: 1rem;
     @media (max-width: 768px){
-        position: fixed;
-        z-index: 99;
+        position: relative;
+        z-index: -1;
+          margin: 0 15px 0 0;
     }
  }
 </style>

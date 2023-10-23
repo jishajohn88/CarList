@@ -8,12 +8,14 @@
            <div class="vehicle_card">
                 <img :src="vehicle.original_media_urls[0]" :alt="vehicle" width="100px" height="50px">
                 <div class="vehicle_type">{{vehicle.advert_classification}}</div>
+                <div class="vehicle_miles">{{vehicle.odometer_value}} miles</div>
+                <div class="vehicle_body_type">{{vehicle.body_type}}</div>
                 <p class="vehicle_card_plate">{{vehicle.plate}} {{vehicle.make}}</p>
                 <span class="vehicle_card_derivative">{{vehicle.derivative}}</span>
-                <p class="vehicle_price">{{vehicle.original_price}}</p>
+                <p class="vehicle_price">£{{formatNumber(vehicle.original_price)}}</p>
+            </div>
            </div>           
         </div>
-    </div>
    </article>
     
 </template>
@@ -26,23 +28,17 @@ export default {
       result: []
     }
   },
+  methods: {
+    formatNumber (num) {
+      return Math.round(num)
+    }
+  },
   mounted () {
     fetch('http://localhost:3000/data')
       .then((res) => res.json())
       .then(arrayOfObjects => {
-        console.log(arrayOfObjects)
         this.vehicles = arrayOfObjects
         console.log(this.vehicles)
-        // this.result = arrayOfObjects.map(eachObject => {
-        // console.log(eachObject)
-        // this.vehicles = eachObject.original_media_urls;
-        // this.result = eachObject.slug
-
-        // });
-        // this.vehicles = arrayOfObjects.map(eachObject => {
-        //    console.log(eachObject.media_urls)
-        //   return{...eachObject, src: require(`/${eachObject.media_urls[eachObject]}`)}
-        // })
       })
       .catch(err => console.log(err.message))
   }
@@ -64,7 +60,7 @@ export default {
         border-radius: 10px;
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: flex-start;
         flex-wrap: wrap;
     }
     .vehicle_card{
@@ -107,5 +103,25 @@ export default {
         border-radius:4px;
         color: #eee;
         font-size: 10px;
+    }
+    .vehicle_miles{
+        position: absolute;
+        top: 120px;
+        left: 16px;
+        background: black;
+        color:#eee;
+        font-size: 10px;
+        padding: 4px;
+        border-radius: 4px;
+    }
+    .vehicle_body_type{
+        position: absolute;
+        top: 120px;
+        left: 80px;
+        background: black;
+        color:#eee;
+        font-size: 10px;
+        padding: 4px;
+        border-radius: 4px;
     }
 </style>
